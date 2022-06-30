@@ -19,6 +19,23 @@ public:
         perm_z = perlin_generate_perm();
     }
 
+    ~perlin()
+    {
+        delete[] ranfloat;
+        delete[] perm_x;
+        delete[] perm_y;
+        delete[] perm_z;
+    }
+
+    double noise(const point3 &p) const
+    {
+        auto i = static_cast<int>(4 * p.x()) & 255;
+        auto j = static_cast<int>(4 * p.y()) & 255;
+        auto k = static_cast<int>(4 * p.z()) & 255;
+
+        return ranfloat[perm_x[i] ^ perm_y[j] ^ perm_z[k]];
+    }
+
 private:
     static const int point_count = 256;
     double *ranfloat;
