@@ -28,12 +28,14 @@ public:
     }
 
     double noise(const point3 &p) const
-    {   
-        // The frequency can be changed by changing the frequency (more random numbers can be used)
-        int perfreq = 16;
-        auto i = static_cast<int>(perfreq * p.x()) & 255;
-        auto j = static_cast<int>(perfreq * p.y()) & 255;
-        auto k = static_cast<int>(perfreq * p.z()) & 255;
+    {
+        // auto u = p.x() - floor(p.x());
+        // auto v = p.y() - floor(p.y());
+        // auto w = p.z() - floor(p.z());
+
+        auto i = static_cast<int>(p.x()) & 255;
+        auto j = static_cast<int>(p.y()) & 255;
+        auto k = static_cast<int>(p.z()) & 255;
 
         return ranfloat[perm_x[i] ^ perm_y[j] ^ perm_z[k]];
     }

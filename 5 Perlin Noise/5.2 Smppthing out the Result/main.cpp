@@ -17,7 +17,6 @@ color ray_color(const ray &r, const hittable &world, int depth)
         return color(0, 0, 0);
     //某些反射光线不是在精确的t=0处撞击到它们所反射的对象，而是在t=−0.0000001或t=0.00000001或球体相交给我们的任何浮点近似值处。
     // 因此，我们需要忽略非常接近零的值。这样就可以修正Shadow Acne
-    vec3 minp = vec3(1000010, 1000010,1000010);
     if (world.hit(r, 0.001, infinity, rec))
     {
         ray scattered;
@@ -26,6 +25,7 @@ color ray_color(const ray &r, const hittable &world, int depth)
             return attenuation * ray_color(scattered, world, depth - 1);
         return color(0, 0, 0);
     }
+
     vec3 unit_direction = unit_vector(r.direction());
     auto t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
