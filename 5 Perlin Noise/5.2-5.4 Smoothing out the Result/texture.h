@@ -54,13 +54,18 @@ class noise_texture : public texture
 {
 public:
     noise_texture() {}
+    // 5.4 Tweaking the frequency
+    noise_texture(double sc) : scale(sc) {}
     virtual color value(double u, double v, const point3 &p) const override
     {
-        return color(1, 1, 1) * noise.noise(p);
+        // return color(1, 1, 1) * noise.noise(p);
+        // 5.4
+        return color(1, 1, 1) * noise.noise(scale * p);
     }
 
 public:
     perlin noise;
+    double scale;
 };
 
 #endif
