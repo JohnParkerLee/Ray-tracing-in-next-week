@@ -211,6 +211,7 @@ hittable_list final_scene()
     hittable_list objects;
 
     objects.add(make_shared<bvh_node>(boxes1, 0, 1));
+    return objects;
 }
 
 int main()
@@ -298,7 +299,7 @@ int main()
         aspect_ratio = 1.0;
         image_width = 800;
         image_height = static_cast<int>(image_width / aspect_ratio);
-        samples_per_pixel = 10000;
+        samples_per_pixel = 200;
         lookfrom = point3(478, 278, -600);
         lookat = point3(278, 278, 0);
         vfov = 40.0;
